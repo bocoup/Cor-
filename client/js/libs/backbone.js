@@ -4,7 +4,7 @@
 //     For all details and documentation:
 //     http://documentcloud.github.com/backbone
 
-(function(){
+define("Backbone", ["underscore"], function(_) {
 
   // Initial Setup
   // -------------
@@ -28,7 +28,7 @@
   Backbone.VERSION = '0.5.3';
 
   // Require Underscore, if we're on the server, and it's not already present.
-  var _ = root._;
+  var _ = _ || root._;
   if (!_ && (typeof require !== 'undefined')) _ = require('underscore')._;
 
   // For Backbone's purposes, jQuery or Zepto owns the `$` variable.
@@ -1155,4 +1155,6 @@
     return string.replace(/&(?!\w+;|#\d+;|#x[\da-f]+;)/gi, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/\//g,'&#x2F;');
   };
 
-}).call(this);
+  return Backbone;
+
+});
