@@ -11,34 +11,64 @@ io.sockets.on("connection", function(socket) {
   var game = {
     socket: new net.Socket({ type: "tcp4" }),
     events: new events.EventEmitter(),
-    log: [],
 
     write: function(msg) {
       game.socket.write("\000" + msg, "utf8");
+    },
+    
+    // Custom API overrides
+    // Rewrite to use write
+    api: {
+
+      CLOSE: function(message) {
+        game.events.emit("close", { success: false, data: message });
+      },
+
+      LOGIN: function(message) {
+        game.events.emit("login", { success: true, data: message });
+      },
+
+      UNSEEK: function(message) {
+        game.events.emit("unseek", { data: message });
+      },
+
+      SEEK: function(message) {
+        game.events.emit("seek", { data: message });
+      },
+
+      WHO: function(message) {
+        game.events.emit("who", { data: message });
+      },
+
+      MOVE: function(message) {
+        game.socket.emit("move", { data: message });
+      },
+
+      ASITIS: function(message) {
+        game.socket.emit("asitis", { data: message });
+      },
+
+      MATCH: function(message) {
+        game.socket.emit("match", { data: message });
+      }
+
     }
   };
 
-  // Incoming data
+  // Incoming data, part out and funnel to the API
   game.socket.on("data", function(data) {
-    data = data.toString() || "";
+    var parts, command, message;
 
-    game.log.push(data.toString());
+    data = data.toString();
 
-    // Invalid
-    if (data.indexOf("CLOSE Invalid password") > -1) {
-      game.events.emit("login", null);
+    if (data) { 
+      parts = data.split(" ");
+      command = parts.unshift();
+      message = parts.join(" ");
+    }
 
-    // Success
-    } else if (data.indexOf("LOGIN Welcome to the Internet Scrabble Club") > -1) {
-      game.events.emit("login", "success");
-
-    // SEEK
-    } else if (data.indexOf("UNSEEK") > -1) {
-      game.socket.emit("UNSEEK", data.toString(), game.log);
-
-    // UNSEEK
-    } else if (data.indexOf("SEEK") > -1) {
-      game.socket.emit("SEEK", data.toString(), game.log);
+    if (command in game.api) {
+      game.api[command](message);
     }
   });
 
@@ -58,9 +88,10 @@ io.sockets.on("connection", function(socket) {
   });
 
   socket.on("formula:set", function(data) {
-    // Example:
-    // SET FORMULA 123 456 1 0 0 4
-    game.write("SET FORMULA " + data.low + " " + data.high + " 1 0 0 4");
+    // // min, max, established, contributory, fairplay, unfinished
+    game.write("SET FORMULA " + data.min + " " + data.max + " "
+      + data.established + " " + data.contributory + " " + data.fairplay
+      + " " + data.unfinished);
   });
 
   socket.on("match", function(data) {
