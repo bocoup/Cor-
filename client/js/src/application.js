@@ -7,21 +7,17 @@ require.config({
     jqueryui: '../libs/jquery-ui-git',
     underscore: '../libs/underscore',
     Backbone: '../libs/backbone',
+    "Backbone.LayoutManager": '../libs/backbone.layoutmanager',
     hbs: '../libs/hbs',
     Handlebars: '../libs/Handlebars'
   }
 });
 require([
-  'jquery',
-  'underscore',
-  'Backbone',
-  "hbs!template/login",
+  'core',
   'jqueryui'
-], function($, _, Backbone, loginTemplate ){
-
-  var socket = io.connect("ws://localhost:1337");
-
-
+], function( Core ){
+  Core.always( Core.init );;
+  /*
   var loginView = Backbone.View.extend({
     template: loginTemplate,
     events: {
@@ -40,7 +36,6 @@ require([
         username: $(this.el).find("[name='username']").val(),
         password: $(this.el).find("[name='password']").val()
       };
-      console.log(obj);
       socket.emit("user:login", obj, function(err, log) {
         console.log(err, log);
       });
@@ -48,7 +43,6 @@ require([
     }
   });
 
-  $(document).ready(function(){
-    $( new loginView().el ).dialog();
-  })
+
+  */
 });

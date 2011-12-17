@@ -20,17 +20,31 @@
 </head>
 <body>
 
-<div id="container">
-	<header>
+<div id="main" role="main">
+  <div id="players">
+    <div id="player-one"></div>
+    <div id="player-two"></div>
+  </div>
+  <div id="rack"></div>
+  <div id="board"></div>
+</div>
 
-	</header>
-	<div id="main" role="main">
+<aside id="controls">
+  <ul>
+    <li><a href="#main-console">Main Console</a></li>
+    <li><a href="#buddies">Buddies</a></li>
+    <li><a href="#seek-graph">Seek Graph</a></li>
+  </ul>
+  <div id="main-console"></div>
+  <div id="buddies"></div>
+  <div id="seek-graph"></div>
+</aside>
 
-	</div>
-	<footer>
-
-	</footer>
-</div> <!--! end of #container -->
+<footer id="main-footer">
+  <div id="player-status"></div>
+  <div id="bag-remaining"></div>
+  <div id="score-preview"></div>
+</footer>
 <!--
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
