@@ -1,4 +1,4 @@
-define("rack", [
+define([
   "MVR",
   "jquery",
   "underscore",

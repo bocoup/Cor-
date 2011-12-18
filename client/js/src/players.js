@@ -1,4 +1,4 @@
-define("players", [
+define([
   "core"
   "jquery",
   'underscore',

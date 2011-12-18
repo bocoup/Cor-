@@ -1,4 +1,4 @@
-define("MVR", [
+define([
   "jquery",
   "Backbone",
 ], function( $, Backbone ) {

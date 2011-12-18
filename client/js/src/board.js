@@ -1,4 +1,4 @@
-define("board", [
+define([
   "MVR",
   "jquery",
   "underscore",

@@ -1,4 +1,4 @@
-define("core", [
+define([
   "MVR",
   "UI",
   "jquery",

@@ -1,4 +1,4 @@
-define("UI", [
+define([
   "hbs!template/mainlayout",
   "MVR",
   "board",
