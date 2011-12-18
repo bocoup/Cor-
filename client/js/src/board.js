@@ -39,23 +39,82 @@ define("board", [
 
 
   Space = MVR.Model.extend({
-    
+    defaults: {
+      row: "A",
+      column: "1",
+      bonus: false
+    }
   }),
+
+  SpaceCollection = MVR.Collection.extend({
+    model: Space
+  }),
+
+  SpaceView = MVR.View.extend({
+    events: {
+      "focus a": "setActive",
+      "blur a": "setInactive",
+      keydown: "keydown"
+    },
+    initialize: function( options ) {
+      MVR.View.prototype.initialize.call( this );
+      this.space = options.space;
+    },
+    setActive: function(e) {
+      this.$el.addClass("active-space")
+    },
+    setInactive: function(e) {
+      this.$el.removeClass("active-space")
+    },
+    keydown: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      var kc = $.ui.keyCode,
+      $t = $(e.currentTarget);
+
+      switch (e.keyCode) {
+        case kc.LEFT:
+          $t.prev().find("a").focus();
+          break;
+        case kc.RIGHT:
+          $t.next().find("a").focus();
+          break;
+        case kc.UP:
+          $t.parent().prev().children().eq( this.space.get("column")-1 ).focus().find("a").focus();
+          break;
+        case kc.DOWN:
+          $t.parent().next().children().eq( this.space.get("column")-1 ).focus().find("a").focus();
+          break;
+      }
+    },
+  }),
+
   Board = MVR.Model.extend({
     columns: columns,
     spaces: spaces,
     toJSON: function() {
       return { spaces: this.spaces }
+    },
+    initialize: function() {
+      this.spaceCollection = new SpaceCollection( this.spaces.concat.apply( [], this.spaces) );
     }
   }),
+
   BoardView = MVR.View.extend({
     template: boardTemplate,
     tagName: "table",
     initialize: function() {
+      MVR.View.prototype.initialize.call( this );
       this.board = new Board();
     },
     render: function(layout) {
-      return layout(this).render( this.board.toJSON() );
+      return layout(this).render( this.board.toJSON() ).then(_.bind(function() {
+        this.$el.find(".board-space").each(_.bind(function(i, el){
+          var space = this.board.spaceCollection.get( $(el).attr("data-id") );
+          space.view = new SpaceView({space: space, el: el})
+        },this));
+      },this));
     }
   });
 
