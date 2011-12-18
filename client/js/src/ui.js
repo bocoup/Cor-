@@ -2,10 +2,11 @@ define("UI", [
   "hbs!template/mainlayout",
   "MVR",
   "board",
+  "rack",
   "jquery",
   "underscore",
   "Backbone.LayoutManager"
-], function( mainLayout, MVR, Board, $, _, boardTemplate ) {
+], function( mainLayout, MVR, Board, Rack, $, _) {
 
   Backbone.LayoutManager.configure({
     fetch: function(name) {
@@ -20,7 +21,8 @@ define("UI", [
   var UI = new Backbone.LayoutManager({
     template: mainLayout,
     views: {
-      "#board": new Board.View()
+      "#board": new Board.View(),
+      "#rack": new Rack.View()
     }
   });
 
