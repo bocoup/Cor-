@@ -16,13 +16,11 @@ define("board", [
   getBonus = function( cellId ) {
     var bonus = false;
     _.each( bonuses, function(cells, bType) {
-      console.log( "index of ",cellId," in ",cells,":", _.indexOf(cells, cellId))
       if ( ~_.indexOf( cells, cellId ) ) {
         bonus = bType;
         return false;
       }
     });
-    console.log(cellId," resolved to bonus"+bonus)
     return bonus;
   }
   spaces = (function() {
@@ -39,6 +37,10 @@ define("board", [
     });
   })(),
 
+
+  Space = MVR.Model.extend({
+    
+  }),
   Board = MVR.Model.extend({
     columns: columns,
     spaces: spaces,
