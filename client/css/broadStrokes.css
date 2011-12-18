@@ -16,12 +16,12 @@
 }
 
 #board table td {
-  width:6.66%;
-  height: 35px;
+  width:6%;
+  height: 40px;
 }
 
 #rack {
-  width:50%;
+  width:40%;
   height: 40px;
   margin: 20px auto;
 }
@@ -34,6 +34,10 @@
 #rack table td {
   height:40px;
   width:40px;
+}
+
+#rack table td+td {
+  border-left:1px solid #000;
 }
 
 #footer 
