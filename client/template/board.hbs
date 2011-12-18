@@ -11,7 +11,7 @@
     <tr>
       <td>{{ this }}</td>
       {{#each ../columns}}
-        {{> template_boardCell}}
+        <td data-column="{{.}}" data-row="{{../.}}"></td>
       {{/each}}
     </tr>
   {{/each}}
