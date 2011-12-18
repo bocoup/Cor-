@@ -2,6 +2,7 @@
 // Their usage will become more apparent futher along in the tutorial.
 require.config({
   paths: {
+    template: "../../template",
     json2: '../libs/json2',
     jquery: '../libs/jquery.min',
     jqueryui: '../libs/jquery-ui-git',
