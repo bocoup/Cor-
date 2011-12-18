@@ -21,7 +21,6 @@ define("rack", [
       this.rack = new Rack();
     },
     render: function(layout) {
-      console.log(this.rack.toJSON())
       return layout(this).render( this.rack.toJSON() );
     }
   });
