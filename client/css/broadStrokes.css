@@ -20,20 +20,39 @@
   height: 40px;
 }
 
+td.board-space {
+  text-align: center;
+  font-weight: bold;
+  border:1px solid #000;
+}
+
+td.bonus-DL {
+  background-color: #a5d4f8;
+}
+td.bonus-DW {
+  background-color: #ffa3a3;
+}
+td.bonus-TL {
+  background-color: #4753e6;
+}
+td.bonus-TW {
+  background-color: #e4185c
+}
+
 #rack {
-  width:40%;
-  height: 40px;
+  width: 358px;
+  height: 50px;
   margin: 20px auto;
 }
 
 #rack table {
-  width: 100%;
+  width: auto;
   border:1px solid #000;
 }
 
 #rack table td {
-  height:40px;
-  width:40px;
+  height:50px;
+  width:50px;
 }
 
 #rack table td+td {

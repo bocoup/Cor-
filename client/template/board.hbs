@@ -7,11 +7,10 @@
   </tr>
 </thead>
 <tbody>
-  {{#each rows}}
+  {{#each spaces}}
     <tr>
-      <td>{{ this }}</td>
-      {{#each ../columns}}
-        <td data-column="{{.}}" data-row="{{../.}}"></td>
+      {{#each .}}
+        {{> template_space}}
       {{/each}}
     </tr>
   {{/each}}
