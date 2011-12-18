@@ -5,6 +5,8 @@ define("MVR", [
 
   var Model = Backbone.Model,
 
+  Collection = Backbone.Collection,
+
   View = Backbone.View.extend({
     initialize: function() {
       Backbone.View.prototype.initialize.call( this );
@@ -23,6 +25,7 @@ define("MVR", [
   return {
     Model: Model,
     View: View,
+    Collection: Collection,
     Router: Router
   };
 
