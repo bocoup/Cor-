@@ -1,8 +1,8 @@
 define("players", [
-  'core'
-  'jquery',
+  "core"
+  "jquery",
   'underscore',
-  "hbs!template/login",
+  "hbs!template/login"
 ], function( Core, $, _, loginTemplate ) {
 
   var dfd = $.Deferred(),

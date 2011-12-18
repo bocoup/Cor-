@@ -1,48 +1,26 @@
 define("core", [
-  "hbs!template/mainlayout",
+  "MVR",
+  "UI",
   "jquery",
   "underscore",
-  "Backbone",
-  "Backbone.LayoutManager"
-], function( mainLayout, $, _, Backbone) {
+], function( MVR, UI, $, _) {
 
-  var dfd = $.Deferred(),
-
+  var dfd = $.Deferred(), 
+  
   socket = io.connect("ws://localhost:1337");
 
-  Model = Backbone.Model,
-
-  View = Backbone.View.extend({
-    cleanup: function() {
-    },
-    remove: function() {
-      this.cleanup();
-      Backbone.View.prototype.remove.call(this);
+  moduleInterface = {
+    init: function() {
+      $(document).ready(function() {
+        UI.render(function(el) {
+          $(document.body).html(el);
+        });
+      });
     }
-  }),
-
-  Router = Backbone.Router,
-
-  UI = new Backbone.LayoutManager({
-    template: mainLayout
-  }),
+  };
 
   dfd.resolve();
 
-  return _.extend( dfd.promise(), {
-    Model: Model,
-    View: View,
-    Router: Router,
-    init: function() {
-      $(document).ready(function() {
-// This works
-        $(document.body).html( mainLayout() );
-// But this doesn't
-//        UI.render(function(el) {
-//          $(document.body).html(el);
-//        });
-      });
-    }
-  });
+  return _.extend( dfd.promise(), moduleInterface );
 
-})
+});

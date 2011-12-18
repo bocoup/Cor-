@@ -16,7 +16,7 @@ require([
   'core',
   'jqueryui'
 ], function( Core ){
-  Core.always( Core.init );;
+  Core.always( Core.init );
   /*
   var loginView = Backbone.View.extend({
     template: loginTemplate,
