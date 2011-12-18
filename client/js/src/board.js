@@ -28,7 +28,7 @@ define("board", [
       return _.map(columns, function(col, dex) {
         var id = row + col;
         return {
-          id: row + col,
+          id: id,
           row: row,
           column: col,
           bonus: getBonus( id )
