@@ -81,10 +81,10 @@ define("board", [
           $t.next().find("a").focus();
           break;
         case kc.UP:
-          $t.parent().prev().children().eq( this.space.get("column")-1 ).focus().find("a").focus();
+          $t.parent().prev().children().eq( this.space.get("column")-1 ).find("a").focus();
           break;
         case kc.DOWN:
-          $t.parent().next().children().eq( this.space.get("column")-1 ).focus().find("a").focus();
+          $t.parent().next().children().eq( this.space.get("column")-1 ).find("a").focus();
           break;
       }
     },
