@@ -1,0 +1,39 @@
+#main, #controls {
+  float: left;
+}
+
+#main {
+  width:60%;
+}
+
+#controls {
+  width:40%;
+}
+
+#board table {
+  width:95%;
+  margin: 0 auto;
+}
+
+#board table td {
+  width:6.66%;
+  height: 35px;
+}
+
+#rack {
+  width:50%;
+  height: 40px;
+  margin: 20px auto;
+}
+
+#rack table {
+  width: 100%;
+  border:1px solid #000;
+}
+
+#rack table td {
+  height:40px;
+  width:40px;
+}
+
+#footer 
