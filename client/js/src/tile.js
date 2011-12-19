@@ -19,7 +19,6 @@ define([
       this.each(function(tile, index){
         var o = { tile: tile };
         tile.inBagView = new TileBagView(o);
-        console.log(this);
       },this);
     } 
   }),
