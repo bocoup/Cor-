@@ -120,7 +120,8 @@ define([
   });
 
   return {
-    View: BoardView
+    View: BoardView,
+    Bag: Bag
   };
 
 });

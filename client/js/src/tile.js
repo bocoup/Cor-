@@ -1,8 +1,9 @@
 define([
   "MVR",
   "jquery",
-  "underscore"
-], function( MVR, $, _ ) {
+  "underscore",
+  "hbs!template/tileBagCompact"
+], function( MVR, $, _, tileBagCompact ) {
 
 
   var Tile = MVR.Model.extend({
@@ -15,7 +16,11 @@ define([
   TileCollection = MVR.Collection.extend({
     model: Tile,
     initialize: function( models, options ) {
-
+      this.each(function(tile, index){
+        var o = { tile: tile };
+        tile.inBagView = new TileBagView(o);
+        console.log(this);
+      },this);
     } 
   }),
 
@@ -28,15 +33,23 @@ define([
   }),
 
   TileBagView = MVR.View.extend({
-    
+    tagName: "li",
+    template: tileBagCompact,
+    initialize: function(options) {
+      MVR.View.prototype.initialize.call( this );
+      this.tile = options.tile;
+      this.render();
+    },
+    render: function() {
+      this.$el.html( this.template(this.tile.toJSON()) );
+      return this;
+
+    }
   })
 
   return {
     Model: Tile,
-    Collection: TileCollection,
-    inRack: TileRackView,
-    onBoard: TileBoardView,
-    inBag: TileBagView
+    Collection: TileCollection
   };
 
 });

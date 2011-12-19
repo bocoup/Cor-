@@ -1,3 +1,10 @@
+html, body {
+  height:100%;
+}
+body > div {
+  position:relative;
+  height:100%;
+}
 #main, #controls {
   float: left;
 }
@@ -10,8 +17,13 @@
   width:40%;
 }
 
+#main-footer {
+  position: absolute;
+  bottom: 0;
+}
+
 #board table {
-  width:80%;
+  width:100%;
   margin: 0 auto;
 }
 
@@ -72,4 +84,25 @@ td.bonus-TW {
   border-left:1px solid #000;
 }
 
-#footer 
+#bag-pretty {
+  float: left;
+  width:20%;
+}
+#board {
+  float: left;
+  margin-left:2%;
+  width:78%;
+}
+
+#bag-compact > div > * {
+  margin: 10px 0;
+  float: left;
+}
+#bag-compact h4 {
+}
+#bag-compact ul li {
+  display:block;
+  float:left;
+  list-style:none;
+  margin:0 1px 0 0;
+}

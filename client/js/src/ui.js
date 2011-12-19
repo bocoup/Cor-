@@ -22,6 +22,8 @@ define([
     template: mainLayout,
     views: {
       "#board": new Board.View(),
+      "#bag-pretty": new Board.Bag.Pretty({el: $("#bag-pretty")[0]}),
+      "#bag-compact": new Board.Bag.Compact({el: $("#bag-compact")[0]}),
       "#rack": new Rack.View()
     }
   });

@@ -2,8 +2,10 @@ define([
   "Tile",
   "MVR",
   "jquery",
-  "underscore"
-], function( Tile, MVR, $, _ ) {
+  "underscore",
+  "hbs!template/bagCompact",
+  "hbs!template/bagPretty"
+], function( Tile, MVR, $, _, bagCompact, bagPretty ) {
 
 
   var letters = {
@@ -55,16 +57,30 @@ define([
   }),
 
   BagCompactView = MVR.View.extend({
-    
+    template: bagCompact,
+    render: function(layout) {
+      return layout(this).render().then(_.bind(function() {
+        this.list = this.$el.find("ul");
+        bag.tileCollection.each(_.bind(function(tile, index){
+         tile.inBagView.$el.appendTo( this.list )
+        },this))
+      },this));
+    }
   }),
 
   BagPrettyView = MVR.View.extend({
-    
-  });
+    template: bagPretty,
+    render: function(layout) {
+      return layout(this).render().then(_.bind(function() {
+      },this));
+    }
+  }),
+
+  bag = new Bag( {letters: letters} )
 
 
   return {
-    bag: new Bag( {letters: letters} ),
+    bag: bag,
     Pretty: BagPrettyView,
     Compact: BagCompactView
   };
