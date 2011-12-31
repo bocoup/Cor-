@@ -25,6 +25,7 @@ body > div {
 #board table {
   width:100%;
   margin: 0 auto;
+  table-layout: fixed;
 }
 
 td.board-space {
