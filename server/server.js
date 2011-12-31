@@ -1,4 +1,9 @@
-var events = require("events"); var net = require("net");
+var events = require("events");
+var net = require("net");
+var _ = require( "underscore" );
+_.str = require('underscore.string')
+
+
 // Include and bind the Socket.io server to port 1337
 var io = require("socket.io").listen(1337);
 
@@ -55,21 +60,41 @@ io.sockets.on("connection", function(socket) {
     }
   };
 
+  var filter_regex = /(0 [A-Z\s]{3,})/g;
   // Incoming data, part out and funnel to the API
+  // Messages can contain more than one command (especialyl after login)
+  // We have to parse out each individual command and pass it to the api if applicable
   game.socket.on("data", function(data) {
-    var parts, command, message;
+    var data = _.str.trim(data.toString());
 
-    data = data.toString();
+    matchedCommands = data.match(filter_regex),
 
-    if (data) { 
-      parts = data.split(" ");
-      command = parts.unshift();
-      message = parts.join(" ");
-    }
+    commands = [],
 
-    if (command in game.api) {
-      game.api[command](message);
-    }
+    matchedCommands.forEach(function(cmd, i){
+      var c = "",
+      mydex = data.indexOf( cmd ),
+      nextdex = data.indexOf( matchedCommands[i+1] );
+      if (!matchedCommands[i+1]) {
+        c = data.slice(mydex);
+      } else {
+        c = data.substring(mydex, nextdex);
+      }
+      commands.push(c.replace(/^0\s/,""));
+    });
+
+    commands.forEach(function(command, i) {
+      console.log(command);
+      var cmd, msg, arr = command.split(" ");
+      cmd = arr.shift();
+      if( arr[0] && arr[0].match(/[A-Z]{3,}/)) {
+        cmd += arr.shift();
+      }
+      msg = arr.join(" ");
+      if (cmd in game.api) {
+        game.api[cmd](msg);
+      }
+    });
   });
 
   // LOGIN
