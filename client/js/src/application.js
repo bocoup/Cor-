@@ -6,6 +6,7 @@ require.config({
     json2: '../libs/json2',
     jquery: '../libs/jquery.min',
     jqueryui: '../libs/jquery-ui-git',
+    serializeObject: '../libs/jquery.ba-serializeobject',
     underscore: '../libs/underscore',
     Backbone: '../libs/backbone',
     "Backbone.LayoutManager": '../libs/backbone.layoutmanager',
@@ -15,35 +16,8 @@ require.config({
 });
 require([
   'core',
-  'jqueryui'
+  'jqueryui',
+  'serializeObject'
 ], function( Core ){
   Core.always( Core.init );
-  /*
-  var loginView = Backbone.View.extend({
-    template: loginTemplate,
-    events: {
-      "submit": "submit"
-    },
-    initialize: function() {
-      this.render();
-    },
-    render: function() {
-      $(this.el).html( this.template() );
-      return this;
-    },
-    submit: function(e) {
-      e.preventDefault();
-      var obj = {
-        username: $(this.el).find("[name='username']").val(),
-        password: $(this.el).find("[name='password']").val()
-      };
-      socket.emit("user:login", obj, function(err, log) {
-        console.log(err, log);
-      });
-
-    }
-  });
-
-
-  */
 });

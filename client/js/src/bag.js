@@ -43,7 +43,6 @@ define([
     render: function(layout) {
       return layout(this).render().then(_.bind(function() {
         this.list = this.$el.find("ul");
-        console.log(this.list);
         Letters.collection.each(function(letter, index){
          letter.inBagView.$el.appendTo( this.list )
         },this);
