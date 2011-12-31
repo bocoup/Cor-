@@ -1,0 +1,22 @@
+{
+  "name": "cor-server",
+  "version": "0.0.1",
+  "author": "adam j. sontag, tim branyen",
+  "version": "0.0.1",
+  "homepage": "http://github.com/bocoup/Cor-",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bocoup/Cor-.git"
+  },
+  "engines": {
+    "node": ">=0.6.4"
+  },
+  "main": "./server.js",
+  "dependencies": {
+    "pcap": "0.2.8",
+    "socket.io": "0.8.7",
+    "underscore": "1.2.3",
+    "underscore.string": "2.0.0"
+  },
+  "devDependencies": {}
+}
