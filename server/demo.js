@@ -8,10 +8,12 @@ session.on('packet', function (raw_packet) {
   var data = tcp.data;
 
   if (data) {
-    var str = data.toString();
+    var str = data.toString(),
+    message = str + "\n From: "+packet.link.ip.saddr+" To: "+packet.link.ip.daddr
     
-    console.log(str);
-    console.log(str[0].charCodeAt());
+    console.log(message);
+
+    //console.log(str[0].charCodeAt());
   }
 
 });
