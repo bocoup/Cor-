@@ -1,6 +1,8 @@
 define([
   "hbs!template/mainlayout",
+  "buddies",
   "console",
+  "seek",
   "board",
   "rack",
   "user",
@@ -8,7 +10,7 @@ define([
   "jquery",
   "underscore",
   "Backbone.LayoutManager"
-], function( mainLayout, Console, Board, Rack, User, MVR, $, _) {
+], function( mainLayout, Buddies, Console, Seek, Board, Rack, User, MVR, $, _) {
 
   Backbone.LayoutManager.configure({
     fetch: function(name) {
@@ -25,6 +27,8 @@ var UI = new Backbone.LayoutManager({
     views: {
       "#board": new Board.View(),
       "#console": new Console({el: $("#console")[0]}),
+      "#seek-graph": new Seek.Graph({el: $("#seek-graph")[0]}),
+      "#buddies": new Buddies.ListView({el: $("#buddies")[0]}),
       "#bag-pretty": new Board.Bag.Pretty({el: $("#bag-pretty")[0]}),
       "#bag-compact": new Board.Bag.Compact({el: $("#bag-compact")[0]}),
       "#rack": new Rack.View()
