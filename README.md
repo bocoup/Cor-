@@ -21,7 +21,8 @@ Work on this project began in late December of 2011, and at the moment, you coul
 
 ## Developing
 
-Before you get started, you'll need to have node.js and npm set up. Some of you did this a long time, ago, you can skip ahead to the bullet points. For the rest of you, luckily, it's the node 0.6+ era, so not only does `npm` ship as part of node, and there are literally (binary installer packages)[http://nodejs.org/#download] available for Windows, Mac, and Linux, so you can get set up straight away. If you're on Mac, you'll also probably want [xcode](http://developer.apple.com/xcode/). You can also install the [old fashioned way](https://github.com/joyent/node/wiki/Installation) or use [nave](https://github.com/isaacs/nave).
+Before you get started, you'll need to have node.js and npm set up. Some of you did this a long time, ago, you can skip ahead to the bullet points. For the rest of you, luckily, it's the node 0.6+ era, so not only does `npm` ship as part of node, and there are literally [binary installer packages](http://nodejs.org/#download)
+available for Windows, Mac, and Linux, so you can get set up straight away. If you're on Mac, you'll also probably want [xcode](http://developer.apple.com/xcode/). You can also install the [old fashioned way](https://github.com/joyent/node/wiki/Installation) or use [nave](https://github.com/isaacs/nave).
 
 Phew.
 
