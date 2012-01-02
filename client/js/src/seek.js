@@ -2,11 +2,11 @@ define([
   "hbs!template/seek",
   "hbs!template/seekGraph",
   "player",
-  "socket",
+//  "socket",
   "MVR",
   "jquery",
   'underscore',
-], function( seekTemplate, graphTemplate, Player, socket, MVR, $, _ ) {
+], function( seekTemplate, graphTemplate, Player, /*socket.*/ MVR, $, _ ) {
 
   var Seek = MVR.Model.extend({
     defaults: {
@@ -36,12 +36,14 @@ define([
     model: Seek,
     initialize: function() {
       MVR.Collection.prototype.initialize.call( this );
+      /*
       socket.on("seek", _.bind(function(data) {
         this.add( data );
       },this));
       socket.on("unseek", _.bind(function(data){
         this.remove( data.id );
       },this));
+      */
     },
   }),
 

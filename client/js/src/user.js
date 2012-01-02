@@ -1,11 +1,11 @@
 define([
   "hbs!template/auth",
   "player",
-  "socket",
+//  "socket",
   "MVR",
   "jquery",
   "underscore"
-], function( authTemplate, Player, socket, MVR, $, _ ) {
+], function( authTemplate, Player, /*socket, */MVR, $, _ ) {
 
   var User = Player.extend({
     defaults: _.extend({

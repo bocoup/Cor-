@@ -15,7 +15,7 @@ define([
       $(document).ready(function() {
         UI.render(function(el) {
           $(document.body).html(el);
-          User.current.authenticate();
+//          User.current.authenticate();
         });
       });
     }
