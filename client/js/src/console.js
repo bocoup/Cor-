@@ -1,14 +1,21 @@
 define([
   "hbs!template/console",
+  "socket",
   "MVR",
   "jquery",
   "underscore"
-], function( consoleTemplate, MVR, $, _ ) {
+], function( consoleTemplate, socket, MVR, $, _ ) {
 
   var ConsoleView  = MVR.View.extend({
     template: consoleTemplate,
     events: {
       "submit": "submit"
+    },
+    initialize: function() {
+      MVR.View.prototype.initialize.call( this );
+      socket.on("asitis", _.bind(function(data){
+        this.$el.find(".console-messages").append("<li>"+data.data+"</li>")
+      },this));
     },
     render: function(layout) {
       return layout(this).render()

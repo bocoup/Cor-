@@ -48,9 +48,11 @@ define([
     submit: function(e) {
       e.preventDefault();
       var obj = this.$form.serializeObject();
-      socket.emit("user:login", obj, function(err, log) {
-        console.log(err);
-      });
+      socket.emit("user:login", obj, _.bind(function(data) {
+        if ( data.success ) {
+          this.$el.dialog("close");
+        }
+      },this));
 
     }
   }),
