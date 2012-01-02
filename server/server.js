@@ -34,11 +34,11 @@ io.sockets.on("connection", function(socket) {
       },
 
       UNSEEK: function(message) {
-        game.events.emit("unseek", { data: message });
+        socket.emit("unseek", { data: message });
       },
 
       SEEK: function(message) {
-        game.events.emit("seek", { data: message });
+        socket.emit("seek", { data: message });
       },
 
       WHO: function(message) {
@@ -50,7 +50,7 @@ io.sockets.on("connection", function(socket) {
       },
 
       ASITIS: function(message) {
-        game.socket.emit("asitis", { data: message });
+        socket.emit("asitis", { data: message });
       },
 
       MATCH: function(message) {
@@ -108,6 +108,7 @@ io.sockets.on("connection", function(socket) {
     });
 
     game.events.on("login", function(status) {
+      socket.emit("asitis", status);
       done(status, game.log);
     });
   });
