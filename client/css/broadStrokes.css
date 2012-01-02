@@ -10,11 +10,12 @@ body > div {
 }
 
 #main {
-  width:60%;
+  width:70%;
 }
 
 #controls {
-  width:40%;
+  width:28%;
+  margin-left:2%;
 }
 
 #main-footer {
