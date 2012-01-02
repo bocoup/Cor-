@@ -27,7 +27,7 @@ var UI = new Backbone.LayoutManager({
     views: {
       "#board": new Board.View(),
       "#console": new Console({el: $("#console")[0]}),
-      "#seek-graph": new Seek.Graph({el: $("#seek-graph")[0]}),
+      "#seek-graph": Seek.graph,
       "#buddies": new Buddies.ListView({el: $("#buddies")[0]}),
       "#bag-pretty": new Board.Bag.Pretty({el: $("#bag-pretty")[0]}),
       "#bag-compact": new Board.Bag.Compact({el: $("#bag-compact")[0]}),

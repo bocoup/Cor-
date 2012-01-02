@@ -34,11 +34,36 @@ io.sockets.on("connection", function(socket) {
       },
 
       UNSEEK: function(message) {
-        socket.emit("unseek", { data: message });
+        // ISC UNSEEK
+        // UNSEEK fooman 
+        // UNSEEK Username
+        var raw = message.split(" "),
+        unseek = {
+          id: raw[0],
+          username: raw[0]
+        };
+        socket.emit("unseek", unseek);
       },
 
       SEEK: function(message) {
-        socket.emit("seek", { data: message });
+        // ISC Seek looks like
+        // SEEK 868    fooman   0           30        0         1     1 0             0 
+        // SEEK Rating Username DictionaryID Duration Increment Rated ? ChallengeType BeginningOfAsitis
+        var seek = {},
+        raw = message.split(" ");
+        
+        seek.rating = raw[0];
+        seek.username = raw[1];
+        seek.dictionary = raw[2];
+        seek.duration = raw[3];
+        seek.increment = raw[4];
+        seek.rated = raw[5];
+        // don't know what 6 is yet
+        seek.challenge = raw[7];
+        seek.id = seek.username;
+        console.log("emitting SEEK", seek)
+
+        socket.emit("seek", seek);
       },
 
       WHO: function(message) {
