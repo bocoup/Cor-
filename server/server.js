@@ -33,6 +33,14 @@ io.sockets.on("connection", function(socket) {
         game.events.emit("login", { success: true, data: message });
       },
 
+      BUDDIES: function(message) {
+        // ISC UNSEEK - list given upon initial connection
+        // BUDDIES ajpiano timbocoup ersherr fulofself /
+        // UNSEEK Usernames Space Separated TrailingSlash
+        var buddies = message.split(" ");
+        buddies.pop();
+        socket.emit("buddies", buddies);
+      },
       UNSEEK: function(message) {
         // ISC UNSEEK
         // UNSEEK fooman 
