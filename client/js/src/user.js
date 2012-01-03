@@ -7,7 +7,7 @@ define([
   "underscore"
 ], function( authTemplate, Player, socket, MVR, $, _ ) {
 
-  var User = Player.extend({
+  var User = Player.Player.extend({
     defaults: _.extend({
       password: ""
     }),

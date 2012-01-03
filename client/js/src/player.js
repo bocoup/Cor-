@@ -11,8 +11,15 @@ define([
       rating: 0,
       provisional: false
     } 
-  });
+  }),
 
-  return Player;
+  PlayerCollection = MVR.Collection.extend({
+    model: Player
+  })
+
+  return {
+    Player: Player,
+    Collection: PlayerCollection
+  }
 
 })
