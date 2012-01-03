@@ -39,7 +39,7 @@ Follow the steps above in **Developing**, then
 3. Run the HTTP server of your choice, for instance
     * `http-server -p 8000` - [node http-server](http://search.npmjs.org/#/http-server)
     * `python -m SimpleHTTPServer` - [python SimpleHTTPServer](http://effbot.org/librarybook/simplehttpserver.htm)
-4. Open http://localhost:8000/
+4. Go to [http://localhost:8000/](http://localhost:8000) in a web browser
 
 ## Errata
 
