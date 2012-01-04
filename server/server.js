@@ -17,6 +17,26 @@ io.set("log level", 0);
 
 // When a socket connects, establish API
 io.sockets.on("connection", function(socket) {
+
+  // Each "buddy" is a "5-tuple", so we have to chunk the message string into groups of 5, 
+  // and throw away any garbage (sets that don't have 5 items)
+  // Sample "tuple" 
+  // 860    ajpiano  a 0 0 
+  // Rating Username ? ? ?
+  function processBuddies(message) {
+    return _.map(
+      _.reject(_.inGroupsOf( message.split(" "), 5), function(b) {
+        return b.length != 5;
+      }), function(onlineBuddy) {
+        return {
+          rating: onlineBuddy[0],
+          id: onlineBuddy[1],
+          username: onlineBuddy[1],
+          online: true
+        };
+      });
+  }
+
   // Create a new game socket to handle this request
   // and events handler
   var game = {
@@ -45,7 +65,29 @@ io.sockets.on("connection", function(socket) {
         // UNSEEK Usernames Space Separated TrailingSlash
         var buddies = message.split(" ");
         buddies.pop();
-        socket.emit("buddies", buddies);
+        socket.emit("buddies:all", buddies);
+      },
+      "WHO SET": function(message) {
+        // ISC WHO SET - list of online buddies received on initial connection, after entire buddy list is given
+        // WHO SET 860 ajpiano a 0 0 1001 ersherr a 0 0 0 adambocoup a 0 0 :
+        // WHO SET is the initial command,
+        //
+        var buddies = processBuddies(message); 
+        socket.emit("buddies:online", buddies);
+      },
+      "WHO LOGIN": function(message) {
+        // ISC WHO LOGIN - message sent when a buddy logs in
+        // WHO LOGIN 860 ajpiano a 0 0
+        var buddy = processBuddies(message)[0];
+        socket.emit("buddies:login", buddy);
+      },
+      "WHO CLOSE": function(message) {
+        // ISC WHO LOGIN - message sent when a buddy logs out
+        // WHO CLOSE 860 ajpiano a 0 0
+        var buddy = processBuddies(message)[0];
+        buddy.online = false;
+        buddy.rating = 0;
+        socket.emit("buddies:logout", buddy);
       },
       UNSEEK: function(message) {
         // ISC UNSEEK
