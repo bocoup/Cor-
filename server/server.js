@@ -127,7 +127,7 @@ io.sockets.on("connection", function(socket) {
       var cmd, msg, arr = command.split(" ");
       cmd = arr.shift();
       if( arr[0] && arr[0].match(/[A-Z]{3,}/)) {
-        cmd += arr.shift();
+        cmd += " " + arr.shift();
       }
       msg = arr.join(" ");
       if (cmd in game.api) {
