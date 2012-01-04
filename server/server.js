@@ -3,6 +3,12 @@ var net = require("net");
 var _ = require( "underscore" );
 _.str = require('underscore.string')
 
+_.inGroupsOf = function( array, chunk ) {
+  return _.toArray(_.groupBy(array, function(item, index) {
+    return Math.floor( index /chunk );
+  }));
+};
+
 
 // Include and bind the Socket.io server to port 1337
 var io = require("socket.io").listen(1337);
