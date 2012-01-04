@@ -108,7 +108,10 @@ io.sockets.on("connection", function(socket) {
 
     matchedCommands = data.match(filter_regex),
 
-    commands = [],
+    commands = [];
+
+    console.log("---Received Socket Data---")
+    console.log("Raw-est socket data:\n", data);
 
     matchedCommands.forEach(function(cmd, i){
       var c = "",
@@ -123,13 +126,16 @@ io.sockets.on("connection", function(socket) {
     });
 
     commands.forEach(function(command, i) {
-      console.log(command);
       var cmd, msg, arr = command.split(" ");
       cmd = arr.shift();
       if( arr[0] && arr[0].match(/[A-Z]{3,}/)) {
         cmd += " " + arr.shift();
       }
       msg = arr.join(" ");
+      console.log("Raw command: ", command)
+      console.log("CMD: ", cmd);
+      console.log("MSG: ", msg);
+      console.log("-----------")
       if (cmd in game.api) {
         game.api[cmd](msg);
       }
