@@ -1,31 +1,82 @@
 define([
   "hbs!template/console",
+  "hbs!template/consoleMessage",
+  "command",
   "socket",
   "MVR",
   "jquery",
   "underscore"
-], function( consoleTemplate, socket, MVR, $, _ ) {
+], function( consoleTemplate, consoleMessageTemplate, Command, socket, MVR, $, _ ) {
 
-  var ConsoleView  = MVR.View.extend({
+  var Message = MVR.Model.extend({
+    defaults: {
+      msg: "",
+      type: "normal"
+    },
+    initialize: function() {
+      this.view = new MessageView({ message: this });
+    }
+  }),
+
+  MessageView = MVR.View.extend({
+    tagName: "li",
+    template: consoleMessageTemplate,
+    initialize: function(options) {
+      MVR.View.prototype.initialize.call( this );
+      this.message = options.message;
+      this.render();
+    },
+    render: function() {
+      this.$el.html( this.template( this.message.toJSON() ) );
+      return this;
+    }
+  }),
+
+  MessageCollection = MVR.Collection.extend({
+    model: Message,
+    initialize: function( collection, options ) {
+      this.listView = new MessageList({ messages: this });
+      this.bind("add", function(message) {
+        this.listView.$el.append( message.view.el );
+      },this);
+    }
+  }),
+
+  MessageList = MVR.View.extend({
+    tagName: "ul"
+  })
+
+  ConsoleView  = MVR.View.extend({
     template: consoleTemplate,
     events: {
       "submit": "submit"
     },
     initialize: function() {
       MVR.View.prototype.initialize.call( this );
+      _.bindAll(this);
+      this.messages = new MessageCollection();
       socket.on("asitis", _.bind(function(data){
-        this.$el.find(".console-messages").append("<li>"+data.data+"</li>")
+        this.messages.add( {msg: data.data} );
       },this));
     },
     render: function(layout) {
-      return layout(this).render()
+      return layout(this).render().then(_.bind(function() {
+        this.$el.find(".console-messages").html( this.messages.listView.el );
+      },this));
     },
     submit: function(e) {
       e.preventDefault();
-      console.log(e);
-    },
-    sendCommand: function() {
-
+      var cmd, data = $(e.target).serializeObject();
+      if ( data.command ) {
+        this.messages.add({ msg: "> "+ data.command, type: "user-entry"})
+        cmd = Command( data.command );
+        cmd.done(_.bind(function( m ) {
+          this.messages.add({ msg: m });
+        },this));
+        cmd.fail(_.bind(function(m) {
+          this.messages.add({ msg: m, type: "error" });
+        },this))
+      }
     }
   });
 

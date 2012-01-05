@@ -108,3 +108,19 @@ td.bonus-TW {
   list-style:none;
   margin:0 1px 0 0;
 }
+
+.console-messages ul {
+  list-style-type: none;
+  padding: 0; 
+  margin:0 0 1em 1em;
+}
+
+.console-messages ul li {
+  margin: 0;
+}
+.console-messages .message-error {
+  color: #e4185c
+}
+.console-messages .message-user-entry {
+  color: #4753e6;
+}
