@@ -77,6 +77,7 @@ define([
 
       socket.on("buddies:online", _.bind(function(buddies) {
         _.each(buddies, findAndSetBuddy, this);
+        this.queueRender();
       },this));
 
       socket.on("buddies:login", _.bind( findAndSetBuddy, this));
