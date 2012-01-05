@@ -64,7 +64,22 @@ define([
     "shout": notYetImplemented,
     "shuffle": notYetImplemented,
     "sought": notYetImplemented,
-    "tell": notYetImplemented,
+    "tell": function( parms, dfd ) {
+      console.log("sending a tell ", parms);
+      var raw = parms.split(" ");
+      if ( raw.length < 2 ) {
+        dfd.reject("You must specify a message");
+      } else {
+        var data = {
+          username: raw.shift(),
+          message: raw.join(" ")
+        };
+        socket.emit("command:tell", data, _.bind(function(data) {
+          // Assuming failure because taht's all the server is sending back right now
+          dfd.reject( data.message );
+        },this));
+      }
+    },
     "unexamine": notYetImplemented,
     "unmatch": notYetImplemented,
     "unobserve": notYetImplemented,
@@ -99,7 +114,7 @@ define([
       if (fuzzy.length == 1) {
         commands[ fuzzy[0] ]( parms, dfd, fuzzy[0] )
       } else if (fuzzy.length >= 2) {
-        dfd.reject("Ambiguous command! Matched:" + fuzzy.join(", ").toUpperCase() );
+        dfd.reject("Ambiguous command! Matched: " + fuzzy.join(", ").toUpperCase() );
       } else {
         dfd.reject("No such command '"+cmd+"'");
       }

@@ -55,13 +55,22 @@ define([
       MVR.View.prototype.initialize.call( this );
       _.bindAll(this);
       this.messages = new MessageCollection();
+
       socket.on("asitis", _.bind(function(data){
         this.messages.add( {msg: data.data} );
       },this));
+
+      socket.on("tell", _.bind(function(data){
+        var message = data.username + " tells you: " + data.message;
+        this.messages.add( {msg: message, type: "tell"} );
+      },this));
+
     },
     render: function(layout) {
       return layout(this).render().then(_.bind(function() {
         this.$el.find(".console-messages").html( this.messages.listView.el );
+        this.$cli = this.$el.find("input[name='command']");
+        console.log( this.$cli.length );
       },this));
     },
     submit: function(e) {
@@ -75,7 +84,10 @@ define([
         },this));
         cmd.fail(_.bind(function(m) {
           this.messages.add({ msg: m, type: "error" });
-        },this))
+        },this));
+        cmd.always(_.bind(function(m) {
+          this.$cli.val("");
+        },this));
       }
     }
   });

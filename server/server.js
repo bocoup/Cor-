@@ -122,6 +122,17 @@ io.sockets.on("connection", function(socket) {
         socket.emit("seek", seek);
       },
 
+      TELL: function(message) {
+        // ISC TELL looks like
+        // TELL ajpiano  0 hello world 
+        // TELL username ? Message
+        var raw = message.split(" "),
+        tell = {
+          username: raw.shift(),
+          message: raw.slice(1).join(" ")
+        };
+        socket.emit("tell", tell)
+      },
       WHO: function(message) {
         game.events.emit("who", { data: message });
       },
@@ -205,6 +216,16 @@ io.sockets.on("connection", function(socket) {
     game.write("SET FORMULA " + data.min + " " + data.max + " "
       + data.established + " " + data.contributory + " " + data.fairplay
       + " " + data.unfinished);
+  });
+
+  socket.on("command:tell" , function(data, done) {
+    console.log("received a tell command", data);
+    // This is not writing anything so far as i can tell
+    game.write("00 TELL " + data.username + " " + data.message);
+    // Need to figure out how to get an atomic callback for the next
+    // ASITIS, in case it is sent.  How?
+    done({success: false, message: "Your message was not sent"})
+
   });
 
   socket.on("match", function(data) {
