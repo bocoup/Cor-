@@ -73,7 +73,16 @@ define([
     "vars": notYetImplemented,
     "whisper": notYetImplemented,
     "who": notYetImplemented
-  };
+  },
+
+  commandNames = _.keys( commands );
+
+  function fuzzyMatch( str ) {
+    var test = new RegExp("^"+str);
+    return _.filter( commandNames, function(cmd, index) {
+      return cmd.match( test );
+    });
+  }
 
   function Command(string) {
     var dfd = $.Deferred(),
@@ -86,7 +95,14 @@ define([
     if ( commands[cmd] ) {
       commands[cmd]( parms, dfd, cmd );
     } else {
-      dfd.reject("No such command '"+cmd+"'");
+      var fuzzy = fuzzyMatch( cmd );
+      if (fuzzy.length == 1) {
+        commands[ fuzzy[0] ]( parms, dfd, fuzzy[0] )
+      } else if (fuzzy.length >= 2) {
+        dfd.reject("Ambiguous command! Matched:" + fuzzy.join(", ").toUpperCase() );
+      } else {
+        dfd.reject("No such command '"+cmd+"'");
+      }
     }
     console.groupEnd();
     return dfd.promise();
