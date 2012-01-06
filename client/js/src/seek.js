@@ -36,10 +36,10 @@ define([
     model: Seek,
     initialize: function() {
       MVR.Collection.prototype.initialize.call( this );
-      socket.on("seek", _.bind(function(data) {
+      socket.on("player:seek", _.bind(function(data) {
         this.add( data );
       },this));
-      socket.on("unseek", _.bind(function(data){
+      socket.on("player:unseek", _.bind(function(data){
         this.remove( data.id );
       },this));
     },

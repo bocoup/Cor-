@@ -60,7 +60,7 @@ define([
         this.messages.add( {msg: data.data} );
       },this));
 
-      socket.on("tell", _.bind(function(data){
+      socket.on("chat:tell", _.bind(function(data){
         var message = data.username + " tells you: " + data.message;
         this.messages.add( {msg: message, type: "tell"} );
       },this));

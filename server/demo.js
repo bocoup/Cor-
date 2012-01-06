@@ -9,9 +9,13 @@ session.on('packet', function (raw_packet) {
 
   if (data) {
     var str = data.toString(),
-    message = str + "\n From: "+packet.link.ip.saddr+" To: "+packet.link.ip.daddr
+    message = str + "\n From: "+packet.link.ip.saddr+" To: "+packet.link.ip.daddr;
+     
     
-    console.log(data, message);
+//    if ( packet.link.ip.daddr == "66.98.172.34") {
+//      console.log(data, "||||", str);
+    //    }
+    console.log({outgoing: packet.link.ip.daddr == "66.98.172.34"}, str);
 
     //console.log(str[0].charCodeAt());
   }

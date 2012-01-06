@@ -18,7 +18,12 @@ define([
     "assess": notYetImplemented,
     "broadcast": notYetImplemented,
     "best": notYetImplemented,
-    "buddies": notYetImplemented,
+    "buddies": function( parms, dfd) {
+      socket.emit("buddies:list", _.bind(function(data) {
+        // Assuming failure because taht's all the server is sending back right now
+        dfd.resolve( data.message );
+      },this));
+    }, 
     "chat": notYetImplemented,
     "challenge": notYetImplemented,
     "change": notYetImplemented,
@@ -32,7 +37,16 @@ define([
     "delete": notYetImplemented,
     "disconnect": notYetImplemented,
     "examine": notYetImplemented,
-    "finger": notYetImplemented,
+    "finger": function( username, dfd ) {
+      if ( !username.length ) {
+        dfd.reject("You must specify a user");
+      } else {
+        socket.emit("player:finger", {username: username},  _.bind(function(data) {
+          // Assuming failure because taht's all the server is sending back right now
+          dfd.resolve( data.message );
+        },this));
+      }
+    },
     "games": notYetImplemented,
     "help": notYetImplemented,
     "history": notYetImplemented,
@@ -65,7 +79,6 @@ define([
     "shuffle": notYetImplemented,
     "sought": notYetImplemented,
     "tell": function( parms, dfd ) {
-      console.log("sending a tell ", parms);
       var raw = parms.split(" ");
       if ( raw.length < 2 ) {
         dfd.reject("You must specify a message");
@@ -74,7 +87,7 @@ define([
           username: raw.shift(),
           message: raw.join(" ")
         };
-        socket.emit("command:tell", data, _.bind(function(data) {
+        socket.emit("chat:tell", data, _.bind(function(data) {
           // Assuming failure because taht's all the server is sending back right now
           dfd.reject( data.message );
         },this));

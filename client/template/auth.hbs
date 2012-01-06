@@ -1,10 +1,16 @@
-<form>
+<form action="#" method="POST">
+  <div class="error-pane"></div>
   <label>User Name
-    <input type="text" name="username" value="adambocoup"/>
+    <input type="text" name="username"/>
   </label>
   <label>Password
-    <input type="password" name="password" value="123456"/>
+    <input type="password" name="password"/>
   </label>
+  <label>Service
+    <select name="service" readonly>
+      <option value="isc">ISC Main Server</option>
+    </select>
+    </label>
   <button type="submit" style="display:none;"></button>
 </form>
 

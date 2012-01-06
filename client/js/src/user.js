@@ -28,6 +28,7 @@ define([
     render: function() {
       this.$el.html( this.template() );
       this.$form = this.$el.find("form");
+      this.$pane = this.$el.find(".error-pane");
       this.$el.dialog({
         title: "Connect to ISC",
         close: _.bind(function() {
@@ -47,10 +48,13 @@ define([
     },
     submit: function(e) {
       e.preventDefault();
+      this.$pane.empty();
       var obj = this.$form.serializeObject();
       socket.emit("user:login", obj, _.bind(function(data) {
         if ( data.success ) {
           this.$el.dialog("close");
+        } else {
+          this.$pane.text( data.message );
         }
       },this));
 
