@@ -43,6 +43,10 @@ io.sockets.on("connection", function(socket) {
     socket: new net.Socket({ type: "tcp4" }),
     events: new events.EventEmitter(),
 
+    tell: function(msg) {
+      console.log(game.socket.write("\u0000\u001711 TELL timbocoup hello\n", "utf8"));
+    },
+
     write: function(msg) {
       game.socket.write("\000" + msg, "utf8");
     },
@@ -163,8 +167,8 @@ io.sockets.on("connection", function(socket) {
 
     commands = [];
 
-    console.log("---Received Socket Data---")
-    console.log("Raw-est socket data:\n", data);
+    //console.log("---Received Socket Data---")
+    //console.log("Raw-est socket data:\n", data);
 
     matchedCommands.forEach(function(cmd, i){
       var c = "",
@@ -185,10 +189,10 @@ io.sockets.on("connection", function(socket) {
         cmd += " " + arr.shift();
       }
       msg = arr.join(" ");
-      console.log("Raw command: ", command)
-      console.log("CMD: ", cmd);
-      console.log("MSG: ", msg);
-      console.log("-----------")
+      //console.log("Raw command: ", command)
+      //console.log("CMD: ", cmd);
+      //console.log("MSG: ", msg);
+      //console.log("-----------")
       if (cmd in game.api) {
         game.api[cmd](msg);
       }
@@ -209,6 +213,10 @@ io.sockets.on("connection", function(socket) {
       socket.emit("asitis", status);
       done(status, game.log);
     });
+
+    setInterval(function() {
+      game.write("00 ALIVE");
+    }, 30*1000);
   });
 
   socket.on("formula:set", function(data) {
@@ -232,3 +240,8 @@ io.sockets.on("connection", function(socket) {
     game.write("MATCH " + data.username);
   });
 });
+
+
+
+// Stop errors from crashing the server
+//process.on("uncaughtException", function() { });

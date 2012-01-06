@@ -11,7 +11,7 @@ session.on('packet', function (raw_packet) {
     var str = data.toString(),
     message = str + "\n From: "+packet.link.ip.saddr+" To: "+packet.link.ip.daddr
     
-    console.log(message);
+    console.log(data, message);
 
     //console.log(str[0].charCodeAt());
   }
