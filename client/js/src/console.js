@@ -70,7 +70,6 @@ define([
       return layout(this).render().then(_.bind(function() {
         this.$el.find(".console-messages").html( this.messages.listView.el );
         this.$cli = this.$el.find("input[name='command']");
-        console.log( this.$cli.length );
       },this));
     },
     submit: function(e) {
