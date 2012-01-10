@@ -34,7 +34,7 @@ td.board-space {
   text-align: center;
   font-weight: bold;
   border:1px solid #000;
-  font-size: 28px;
+  font-size: 200%;
   height: 40px;
   vertical-align:middle;
 }
