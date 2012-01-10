@@ -51,44 +51,101 @@ define([
     model: Space
   }),
 
+  moveOrientation = "H",
+
   SpaceView = MVR.View.extend({
     events: {
-      "focus a": "setActive",
-      "blur a": "setInactive",
-      keydown: "keydown"
+      "focusin": "setActive",
+      "focusout": "setInactive",
+      keydown: "keydown",
+      keyup: "keyup"
     },
     initialize: function( options ) {
       MVR.View.prototype.initialize.call( this );
+      _.bindAll(this);
       this.space = options.space;
+      this.$input = this.$el.find("input");
+      this.$el.data("space", this);
     },
     setActive: function(e) {
-      this.$el.addClass("active-space")
+      this.$el.addClass("active-space");
+      this.empty();
     },
     setInactive: function(e) {
       this.$el.removeClass("active-space")
     },
+    left: function() {
+      return this.$el.prev()
+    },
+    right: function() {
+      return this.$el.next();
+    },
+    up: function() {
+      return this.$el.parent().prev().children().eq( this.space.get("column")-1 );
+    },
+    down: function() {
+      return this.$el.parent().next().children().eq( this.space.get("column")-1 );
+    },
+    empty: function() {
+      return this.$input.val("").removeClass("tile");
+    },
     keydown: function(e) {
-      e.preventDefault();
-      e.stopPropagation();
 
       var kc = $.ui.keyCode,
-      $t = $(e.currentTarget);
+      $t = $(e.currentTarget),
+      isLetter = (e.keyCode >= 65 && e.keyCode <= 90),
+      // Allow tab, backspace and delete to pass through
+      allowed = isLetter || !!(~_.indexOf( [8, 46], e.keyCode )),
+      hasValue = !!$t.val(),
+      isRemove = (e.keyCode == kc.BACKSPACE || e.keyCode == kc.DELETE);
+
+      if ( !allowed ) {
+        return false;
+      }
+
+    },
+    keyup: function(e) {
+
+      var kc = $.ui.keyCode,
+      isRemove = (e.keyCode == kc.BACKSPACE || e.keyCode == kc.DELETE),
+      hasValue = !!this.$input.val();
+
+      if ( e.keyCode == kc.TAB ) {
+        return;
+      }
+
+      this.$input.toggleClass("tile", hasValue);
 
       switch (e.keyCode) {
         case kc.LEFT:
-          $t.prev().find("a").focus();
+          this.left().find("input").focus();
           break;
         case kc.RIGHT:
-          $t.next().find("a").focus();
+          this.right().find("input").focus();
           break;
         case kc.UP:
-          $t.parent().prev().children().eq( this.space.get("column")-1 ).find("a").focus();
+          this.up().find("input").focus();
           break;
         case kc.DOWN:
-          $t.parent().next().children().eq( this.space.get("column")-1 ).find("a").focus();
+          this.down().find("input").focus();
           break;
       }
-    },
+      if ( !hasValue && isRemove ) {
+        var next = this[e.keyCode == kc.BACKSPACE ? "left" : "right"](),
+        space = next.data("space");
+        if ( space ) {
+          space.empty().focus();
+        }
+      } else if (hasValue && isRemove) {
+          this.empty();
+      } else if ( hasValue ) {
+        var dest = moveOrientation == "H" ? "right" : "down";
+        if ( isRemove ) {
+          dest = moveOrientation == "H" ? "left" : (e.keyCode == kc.BACKSPACE ? "up" : "down");
+        }
+        this[dest]().find("input").focus();
+      }
+    }
   }),
 
   Board = MVR.Model.extend({
@@ -108,6 +165,13 @@ define([
     initialize: function() {
       MVR.View.prototype.initialize.call( this );
       this.board = new Board();
+      // Disable backspace from tirggering 'back' navigation in browser
+      $(document).keydown(function(e) {
+        if (e.keyCode == 8 ) {
+          return false;
+        }
+      })
+
     },
     render: function(layout) {
       return layout(this).render( this.board.toJSON() ).then(_.bind(function() {
