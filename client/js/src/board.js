@@ -51,14 +51,15 @@ define([
     model: Space
   }),
 
-  moveOrientation = "H",
+  moveOrientation = "v",
 
   SpaceView = MVR.View.extend({
     events: {
       "focusin": "setActive",
       "focusout": "setInactive",
       keydown: "keydown",
-      keyup: "keyup"
+      keyup: "keyup",
+      click: "toggleOrientation"
     },
     initialize: function( options ) {
       MVR.View.prototype.initialize.call( this );
@@ -68,11 +69,16 @@ define([
       this.$el.data("space", this);
     },
     setActive: function(e) {
-      this.$el.addClass("active-space");
+      this.$el.addClass("active-space move-orientation-"+moveOrientation);
       this.empty();
     },
     setInactive: function(e) {
-      this.$el.removeClass("active-space")
+      this.$el.removeClass("active-space move-orientation-v move-orientation-h");
+    },
+    toggleOrientation: function(e) {
+      this.$el.removeClass( "move-orientation-"+moveOrientation );
+      moveOrientation = moveOrientation == "h" ? "v" : "h";
+      this.$el.addClass( "move-orientation-"+moveOrientation );
     },
     left: function() {
       return this.$el.prev()
@@ -130,8 +136,10 @@ define([
           this.down().find("input").focus();
           break;
       }
+
       if ( !hasValue && isRemove ) {
-        var next = this[e.keyCode == kc.BACKSPACE ? "left" : "right"](),
+        var dest = moveOrientation == "h" ? "left" : (e.keyCode == kc.BACKSPACE ? "up" : "down"),
+        next = this[dest](),
         space = next.data("space");
         if ( space ) {
           space.empty().focus();
@@ -139,9 +147,9 @@ define([
       } else if (hasValue && isRemove) {
           this.empty();
       } else if ( hasValue ) {
-        var dest = moveOrientation == "H" ? "right" : "down";
+        var dest = moveOrientation == "h" ? "right" : "down";
         if ( isRemove ) {
-          dest = moveOrientation == "H" ? "left" : (e.keyCode == kc.BACKSPACE ? "up" : "down");
+          dest = moveOrientation == "h" ? "left" : (e.keyCode == kc.BACKSPACE ? "up" : "down");
         }
         this[dest]().find("input").focus();
       }

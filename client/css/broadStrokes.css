@@ -66,7 +66,17 @@ td-board-space input:-moz-placeholder {
 }
 
 td.board-space.active-space {
-  background: #97c72d;
+  background: #E0FF77;
+  position: relative;
+}
+
+td.board-space.active-space.move-orientation-h:before {
+  content: "\25B6";
+  position:absolute;
+}
+td.board-space.active-space.move-orientation-v:before {
+  content: "\25BC";
+  position:absolute;
 }
   td.board-space.active-space input::webkit-input-placeholder {
     color:  #97c72d !important; /* A cheap trick to prevent placeholder text from being visible on active square */
