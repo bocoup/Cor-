@@ -105,6 +105,10 @@ define([
       hasValue = !!$t.val(),
       isRemove = (e.keyCode == kc.BACKSPACE || e.keyCode == kc.DELETE);
 
+      if ( e.keyCode == kc.TAB ) {
+        this.toggleOrientation(e);
+      }
+
       if ( !allowed ) {
         return false;
       }
