@@ -5,7 +5,7 @@ define([
   "socket",
   "MVR",
   "jquery",
-  'underscore',
+  "use!underscore"
 ], function( buddiesTemplate, buddyListPlayerTemplate, Player, socket, MVR, $, _ ) {
 
   var Buddy = Player.Player.extend({

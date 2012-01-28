@@ -8,8 +8,6 @@
  *
  * http://docs.jquery.com/UI
  */
-define("jquery-ui", ["jquery"], function( jQuery ) {
-
 (function($, undefined) {
 var $ = jQuery;
 // prevent duplicate loading
@@ -14536,5 +14534,3 @@ $.widget( "ui.tooltip", {
 });
 
 }( jQuery ) );
-
-});

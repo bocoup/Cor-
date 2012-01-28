@@ -2,7 +2,7 @@ define([
   "Bag",
   "MVR",
   "jquery",
-  "underscore",
+  "use!underscore",
   "hbs!template/board"
 ], function( Bag, MVR, $, _, boardTemplate ) {
 

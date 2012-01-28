@@ -5,7 +5,7 @@ define([
   "socket",
   "MVR",
   "jquery",
-  'underscore',
+  "use!underscore"
 ], function( seekTemplate, graphTemplate, Player, socket, MVR, $, _ ) {
 
   var Seek = MVR.Model.extend({

@@ -1,7 +1,7 @@
 define([
   "MVR",
   "jquery",
-  "underscore",
+  "use!underscore",
   "hbs!template/rack"
 ], function( MVR, $, _, rackTemplate ) {
 

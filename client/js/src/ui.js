@@ -8,8 +8,8 @@ define([
   "user",
   "MVR",
   "jquery",
-  "underscore",
-  "Backbone.LayoutManager"
+  "use!underscore",
+  "use!Backbone.LayoutManager"
 ], function( mainLayout, Buddies, Console, Seek, Board, Rack, User, MVR, $, _) {
 
   Backbone.LayoutManager.configure({

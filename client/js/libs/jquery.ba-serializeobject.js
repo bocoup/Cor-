@@ -9,8 +9,6 @@
 
 // Whereas .serializeArray() serializes a form into an array, .serializeObject()
 // serializes a form into an (arguably more useful) object.
-define("jquery-serializeObject", ["jquery"], function( jQuery ) {
-
 (function($,undefined){
   '$:nomunge'; // Used by YUI compressor.
   
@@ -30,5 +28,3 @@ define("jquery-serializeObject", ["jquery"], function( jQuery ) {
   };
   
 })(jQuery);
-
-});

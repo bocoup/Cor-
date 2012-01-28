@@ -1,7 +1,7 @@
 define([
   "MVR",
   "jquery",
-  "underscore",
+  "use!underscore",
   "hbs!template/tileBagCompact"
 ], function( MVR, $, _, tileBagCompact ) {
 

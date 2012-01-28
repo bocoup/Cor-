@@ -2,7 +2,7 @@ define([
   "Tile",
   "MVR",
   "jquery",
-  "underscore",
+  "use!underscore",
   "hbs!template/letterBagPretty"
 ], function( Tile, MVR, $, _, letterBagPretty ) {
 

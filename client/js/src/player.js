@@ -1,7 +1,7 @@
 define([
   "MVR",
   "jquery",
-  'underscore',
+  "use!underscore",
 ], function( MVR, $, _ ) {
 
   var Player = MVR.Model.extend({

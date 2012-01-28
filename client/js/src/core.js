@@ -3,7 +3,7 @@ define([
   "MVR",
   "UI",
   "jquery",
-  "underscore",
+  "use!underscore"
 ], function( User, MVR, UI, $, _) {
 
   var dfd = $.Deferred(),

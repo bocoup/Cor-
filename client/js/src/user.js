@@ -4,7 +4,7 @@ define([
   "socket",
   "MVR",
   "jquery",
-  "underscore"
+  "use!underscore"
 ], function( authTemplate, Player, socket, MVR, $, _ ) {
 
   var User = Player.Player.extend({

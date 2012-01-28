@@ -2,7 +2,6 @@
  * Copyright 2011, Tim Branyen (@tbranyen)
  * backbone.layoutmanager.js may be freely distributed under the MIT license.
  */
-define("Backbone.LayoutManager", ["Backbone", "underscore", "jquery"],function(Backbone, _, $) {
 
 // Enforce strict mode
 "use strict";
@@ -290,6 +289,3 @@ Backbone.LayoutManager.prototype.options = {
   }
 
 };
-
-});
-

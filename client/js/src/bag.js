@@ -3,7 +3,7 @@ define([
   "Tile",
   "MVR",
   "jquery",
-  "underscore",
+  "use!underscore",
   "hbs!template/bagCompact",
   "hbs!template/bagPretty"
 ], function( Letters, Tile, MVR, $, _, bagCompact, bagPretty ) {

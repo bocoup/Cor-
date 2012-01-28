@@ -1,7 +1,7 @@
 define([
   "socket",
   "jquery",
-  "underscore"
+  "use!underscore"
 ], function( socket, $, _ ) {
 
   function notYetImplemented( parms, dfd, cmd ) {

@@ -1,6 +1,6 @@
 define([
   "jquery",
-  "Backbone",
+  "use!Backbone"
 ], function( $, Backbone ) {
 
   var Model = Backbone.Model,

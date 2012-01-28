@@ -5,7 +5,7 @@ define([
   "socket",
   "MVR",
   "jquery",
-  "underscore"
+  "use!underscore"
 ], function( consoleTemplate, consoleMessageTemplate, Command, socket, MVR, $, _ ) {
 
   var Message = MVR.Model.extend({
