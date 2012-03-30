@@ -13,14 +13,17 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/broadStrokes.css">
-	<link rel="stylesheet" href="css/jquery-ui-git.css">
+	<link rel="stylesheet" href="assets/css/index.css">
+	<link rel="stylesheet" href="assets/css/broadStrokes.css">
+	<link rel="stylesheet" href="assets/css/jquery-ui-git.css">
 
-	<script src="js/libs/modernizr-2.0.6.min.js"></script>
+	<script src="assets/js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 <body>
-<script src="http://localhost:1337/socket.io/socket.io.js"></script>
-<script data-main="js/src/application.js" src="js/libs/require.js"></script>
+  <!-- Main container -->
+  <div role="main" id="main"></div>
+
+  <!-- Application source -->
+  <script data-main="app/config" src="/assets/js/libs/require.js"></script>
 </body>
 </html>
